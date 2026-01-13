@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mini Antigravity</title>
+</head>
+<body>
+  <h2>Mini Antigravity Agent</h2>
+
+  <textarea id="task" rows="6" cols="50"
+    placeholder="Describe what you want to build..."></textarea>
+  <br><br>
+  <button onclick="runAgent()">Run Agent</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function runAgent() {
+      const task = document.getElementById("task").value;
+
+      const res = await fetch("/agent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ task })
+      });
+
+      const data = await res.json();
+      document.getElementById("output").textContent = data.result;
+    }
+  </script>
+</body>
+</html>
